@@ -1,68 +1,68 @@
-let worksList = []; // Variable globale
+async function appelApi(worksListe, filtresListe) {
+    const worksReponse = await fetch("http://localhost:5678/api/works");
+    worksListe = await worksReponse.json();
 
-async function loadGallery(filteredList = null) {
-    const gallery = document.querySelector(".gallery");
-    gallery.innerHTML = ""; // Vide la galerie à chaque appel
+    const categoriesReponse = await fetch("http://localhost:5678/api/categories");
+    filtresListe = await categoriesReponse.json();
 
-    const listToDisplay = filteredList || worksList;
+    return {worksListe, filtresListe};
+}
 
-    for (let i = 0; i < listToDisplay.length; i++) {
-        const figure = listToDisplay[i];
 
+async function affichageWorks(worksListe) {
+
+    const workGallery = document.querySelector(".gallery");
+    workGallery.innerHTML = ""; // on vide la galerie avant de l'afficher à nouveau
+
+    for(let i = 0; i < worksListe.length; i++) {
+        const work = worksListe[i];
+        
         const workImage = document.createElement("img");
-        workImage.src = figure.imageUrl;
+        workImage.src = work.imageUrl;
 
         const workTitle = document.createElement("h3");
-        workTitle.innerText = figure.title;
+        workTitle.innerText = work.title;
 
-        const workFigure = document.createElement("figure");
-        workFigure.appendChild(workImage);
-        workFigure.appendChild(workTitle);
-
-        gallery.appendChild(workFigure);
+        figure = document.createElement("figure");
+        figure.appendChild(workImage);
+        figure.appendChild(workTitle);
+        figure.setAttribute("data-category", work.category.id);
+        
+        workGallery.appendChild(figure);
     }
 }
 
-async function loadCategories() {
-    const reponse = await fetch("http://localhost:5678/api/categories");
-    const categoriesList = await reponse.json();
 
-    const categorieTous = document.createElement("span");
-    categorieTous.innerText = "Tous";
-    const categorieTousBtn = document.createElement("button");
-    categorieTousBtn.appendChild(categorieTous);
-    categorieTousBtn.addEventListener("click", () => {
-        loadGallery(); // Affiche tout
-    });
+async function affichageFiltres() {
 
-    const categoriesFilters = document.querySelector(".categories-filters");
-    categoriesFilters.appendChild(categorieTousBtn);
+    const {worksListe, filtresListe} = await appelApi();
 
-    for (let i = 0; i < categoriesList.length; i++) {
-        const categorie = categoriesList[i];
+    const workGallery = document.querySelector(".gallery");
+    workGallery.innerHTML = ""; // on vide la galerie avant de l'afficher à nouveau
 
-        const categorieName = document.createElement("span");
-        categorieName.innerText = categorie.name;
+    const filtreTous = document.createElement("button");
+    filtreTous.innerText = "Tous";
+    filtreTous.addEventListener("click", () => affichageWorks(worksListe));
+    const categoriesFiltres = document.querySelector(".categories-filters");
 
-        const categorieBtn = document.createElement("button");
-        categorieBtn.setAttribute("data-category", categorie.id);
-        categorieBtn.appendChild(categorieName);
+    categoriesFiltres.appendChild(filtreTous);
+        
+    for(let i = 0; i < filtresListe.length; i++) {
+        const filtre = filtresListe[i];
 
-        categorieBtn.addEventListener("click", () => {
-            const filtered = worksList.filter(work => work.categoryId === categorie.id);
-            loadGallery(filtered); // Affiche uniquement les projets filtrés
+        const btnFiltres = document.createElement("button");
+        btnFiltres.innerText = filtre.name;
+        btnFiltres.setAttribute("data-category", filtre.id);
+
+        btnFiltres.addEventListener("click", () => {
+            const worksFiltres = worksListe.filter(work => work.category.id === filtre.id);
+            affichageWorks(worksFiltres);
         });
 
-        categoriesFilters.appendChild(categorieBtn);
-    }
+        categoriesFiltres.appendChild(btnFiltres);
+    }  
+
+    affichageWorks(worksListe);
 }
 
-async function init() {
-    const reponse = await fetch("http://localhost:5678/api/works");
-    worksList = await reponse.json();
-
-    loadGallery();     // Affiche tout au début
-    loadCategories();  // Crée les boutons
-}
-
-init();
+affichageFiltres();
