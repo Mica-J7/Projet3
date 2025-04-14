@@ -29,17 +29,17 @@ function loginUtilisateur() {
 
             const data = await reponse.json();
 
-            if (reponse.ok) {
+            if (reponse.ok && data.token) {
                 localStorage.setItem("token", data.token);
                 window.location.href = "index.html";
             } else {
                 errorMsg.innerText = "Erreur dans l'identifiant ou le mot de passe";
             }
         } catch (error) {
-            console.error("Erreur lors de la connexion :", error);
             errorMsg.innerText = "Une erreur est survenue, réessayez plus tard";
         }
     });
 }
 
 loginUtilisateur();
+

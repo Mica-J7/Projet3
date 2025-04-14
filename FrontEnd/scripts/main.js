@@ -72,10 +72,20 @@ async function affichageFiltres() {
             const allBtn = document.querySelectorAll(".categories-filters button");
             allBtn.forEach(btn => btn.classList.remove("selected"));
             
-            btnFiltres.classList.add("selected"); // Les boutons devienent verts au clique.
+            btnFiltres.classList.add("selected"); // Les boutons deviennent verts au clique.
         });
 
         categoriesFiltres.appendChild(btnFiltres);
+
+        // Masquage des boutons en mode administrateur :
+        const token = localStorage.getItem("token");
+        const btnModifier = document.querySelector(".btn-modifier")
+
+        if (token) {
+            filtreTous.style.display = "none";
+            btnFiltres.style.display = "none";
+            btnModifier.style.display = "flex";
+        }
     }  
 
     // Appel à la fonction pour l'affichage de base des works sans filtre :
@@ -83,5 +93,28 @@ async function affichageFiltres() {
 }
 
 
+function affichageModeAdmin() {
+    const loginLink = document.getElementById("login-link");
+    const token = localStorage.getItem("token");
+    const banniereEdition = document.querySelector(".banniere-mode-edition");
+    
+    if (token) {
+        // Utilisateur connecté → on change le lien en "Logout"
+        loginLink.textContent = "Logout";
+        loginLink.href = "#";
+
+        loginLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.removeItem("token");
+            window.location.reload(); // Recharge la page
+        });
+        
+        banniereEdition.style.display = "flex";
+    }
+}
+
 // Appel à la fonction pour l'affichage de la galerie au chargement de la page : 
 affichageFiltres();
+
+// Appel aux fonction d'affichage en mode administrateur :
+affichageModeAdmin();
