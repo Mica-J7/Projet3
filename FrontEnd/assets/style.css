@@ -165,6 +165,7 @@ nav img {
 	margin: 50px;
 }
 
+/* Style normal des boutons filtres */
 .categories-filters button {
 	font-family: "Syne";
 	font-size: 16px;
@@ -176,11 +177,18 @@ nav img {
 	padding: 10px 15px;
 }
 
-.categories-filters button:hover {
+/* Style des boutons au survol, uniquement si le bouton n'a pas la classe "selected" */
+.categories-filters button:not(.selected):hover {
 	background-color: #1D6154;
 	opacity: 50%;
 	color: white;
 	cursor: pointer;
+}
+
+/* Style quand le bouton est sélectionné */
+.categories-filters button.selected {
+	background-color: #1D6154;
+	color: white;
 }
 
 .gallery {
@@ -309,6 +317,13 @@ footer nav ul {
 
 #login label {
 	margin: 2em 0 1em 0;
+}
+
+#error-message {
+	margin: auto;
+	padding-top: 15px;
+	font-size: 16px;
+	color: red;
 }
 
 #login a {
