@@ -1,4 +1,7 @@
-// Fonction d'appel à l'API pour récuperer les works et les categories :
+// ===================================================
+//      1. Appel à l’API (works et filtres)
+// ===================================================
+
 async function appelApi(worksListe, filtresListe) {
     const worksReponse = await fetch("http://localhost:5678/api/works");
     worksListe = await worksReponse.json();
@@ -11,7 +14,9 @@ async function appelApi(worksListe, filtresListe) {
 }
 
 
-// Fonction qui ajoute les figures des works dans le DOM de façon dynamique :
+// ===================================================
+//      2. Affichage des works dynamique
+// ===================================================
 async function affichageWorks(worksListe) {
 
     const workGallery = document.querySelector(".gallery");
@@ -26,7 +31,7 @@ async function affichageWorks(worksListe) {
         const workTitle = document.createElement("h3");
         workTitle.innerText = work.title;
 
-        figure = document.createElement("figure");
+        const figure = document.createElement("figure");
         figure.appendChild(workImage);
         figure.appendChild(workTitle);
         figure.setAttribute("data-category", work.category.id);
@@ -36,7 +41,11 @@ async function affichageWorks(worksListe) {
 }
 
 
-// Fonction d'affichage des boutons filtres ET filtrage :
+// ===================================================
+//      3. Affichage des filtres dynamique
+// ===================================================
+import { affichageModeAdmin } from "./admin.js";
+
 async function affichageFiltres() {
 
     const {worksListe, filtresListe} = await appelApi();
@@ -47,14 +56,15 @@ async function affichageFiltres() {
     // Création du filtre "Tous" :
     const filtreTous = document.createElement("button");
     filtreTous.innerText = "Tous";
+
     filtreTous.addEventListener("click", () => {
         const allBtn = document.querySelectorAll(".categories-filters button")
         allBtn.forEach(btn => btn.classList.remove("selected")); 
         filtreTous.classList.add("selected"); // Le bouton "Tous" devient vert au clique.
         affichageWorks(worksListe)
     });
-    const categoriesFiltres = document.querySelector(".categories-filters");
 
+    const categoriesFiltres = document.querySelector(".categories-filters");
     categoriesFiltres.appendChild(filtreTous);
     
     // Création des autres filtres :
@@ -76,45 +86,15 @@ async function affichageFiltres() {
         });
 
         categoriesFiltres.appendChild(btnFiltres);
-
-        // Masquage des boutons en mode administrateur :
-        const token = localStorage.getItem("token");
-        const btnModifier = document.querySelector(".btn-modifier")
-
-        if (token) {
-            filtreTous.style.display = "none";
-            btnFiltres.style.display = "none";
-            btnModifier.style.display = "flex";
-        }
     }  
 
     // Appel à la fonction pour l'affichage de base des works sans filtre :
     affichageWorks(worksListe);
+    affichageModeAdmin();
 }
 
-
-function affichageModeAdmin() {
-    const loginLink = document.getElementById("login-link");
-    const token = localStorage.getItem("token");
-    const banniereEdition = document.querySelector(".banniere-mode-edition");
+// ===================================================
+//      5. Lancement au chargement de la page
+// ===================================================
+    affichageFiltres();
     
-    if (token) {
-        // Utilisateur connecté → on change le lien en "Logout"
-        loginLink.textContent = "Logout";
-        loginLink.href = "#";
-
-        loginLink.addEventListener("click", (e) => {
-            e.preventDefault();
-            localStorage.removeItem("token");
-            window.location.reload(); // Recharge la page
-        });
-        
-        banniereEdition.style.display = "flex";
-    }
-}
-
-// Appel à la fonction pour l'affichage de la galerie au chargement de la page : 
-affichageFiltres();
-
-// Appel aux fonction d'affichage en mode administrateur :
-affichageModeAdmin();

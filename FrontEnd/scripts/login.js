@@ -1,3 +1,6 @@
+// =====================================================
+//    Connexion utilisateur pour passer en mode admin
+// =====================================================
 function loginUtilisateur() {
     const loginForm = document.querySelector("#login form");
     const inputEmail = document.getElementById("email");
