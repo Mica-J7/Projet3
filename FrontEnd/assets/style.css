@@ -392,16 +392,64 @@ footer nav ul {
 	width: 630px;
 	height: 688px;
 	border-radius: 10px;
-	padding: 20px;
 	background-color: white;
+}
+
+.modal-title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+#close-btn {
+	position: absolute;
+	left: 350px;
+	bottom: 50px;
+	background: none;
+	border: none;
+	font-size: 1.2em;
+	cursor: pointer;
 }
 
 .modal-wrapper h3 {
 	font-family: 'Work Sans';
 	font-size: 26px;
+	margin-top: 70px;
 }
 
-.modal-wrapper button {
+.modal-gallery {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin: 50px 100px 40px 100px;
+	padding-bottom: 40px;
+	border-bottom: solid 1px #B3B3B3;
+}
+
+.modal-gallery figure {
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.modal-gallery figure img {
+	width: 77px;
+	height: 102px;
+	object-fit: cover;
+}
+
+.modal-gallery figure button {
+	position: absolute;
+	top: 5px;
+	left: 55px;
+	padding: 3px;
+	background-color: black;
+    border: none;
+    color: white;
+	cursor: pointer;
+}
+
+.modal-btn button {
 	font-family: "Syne";
 	font-size: 14px;
 	font-weight: 700;
@@ -412,4 +460,5 @@ footer nav ul {
 	width: 237px;
 	height: 36px;
 	padding: 10px 15px;
+	cursor: pointer;
 }

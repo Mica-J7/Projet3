@@ -1,3 +1,5 @@
+
+
 function creationDOMAdmin() {
     const iconeEdition = document.createElement("i");
     iconeEdition.classList.add("fa-regular", "fa-pen-to-square");
@@ -38,29 +40,62 @@ export function affichageModeAdmin() {
     if (token) {
         banniereEdition.style.display = "flex";
 
-        // Utilisateur connecté changement de login en "Logout"
         loginLink.textContent = "Logout";
         loginLink.href = "#";
 
         loginLink.addEventListener("click", (e) => {
             e.preventDefault();
             localStorage.removeItem("token");
-            window.location.reload(); // Recharge la page
+            window.location.reload();
         });
         
-        //filtreTous.style.display = "none";
         btnFiltres.forEach(btn => btn.style.display = "none");
         if (btnModifier) btnModifier.style.display = "flex";        
     }
 }
 
 
-export function openModal() {
+export function openCloseModal() {
     const btnEdition = document.querySelector(".banniere-mode-edition");
+    const btnModifier = document.querySelector(".btn-modifier");
     const modal = document.querySelector(".modal");
+    const modalWrapper = document.querySelector(".modal-wrapper");
+    const closeBtn = document.querySelector("#close-btn");
 
     btnEdition.addEventListener("click", () => {
         modal.style.display = "flex";
     });
-}
 
+    btnModifier.addEventListener("click", () => {
+        modal.style.display = "flex";
+    });
+
+    modal.addEventListener("click", (e) => {
+        if (!modalWrapper.contains(e.target)) {
+            modal.style.display = "none";
+        }
+    });
+
+    closeBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+    })
+};
+
+
+export function displayModalGallery(worksListe) {
+    const modalGallery = document.querySelector(".modal-gallery");
+    modalGallery.innerHTML = "";
+
+    worksListe.forEach(work => {
+        const figure = document.createElement("figure");
+        const img = document.createElement("img");
+        img.src = work.imageUrl;
+        img.alt = work.title
+        const iconeTrash = document.createElement("button");
+        iconeTrash.classList.add("fa-solid", "fa-trash-can");
+
+        figure.appendChild(img);
+        figure.appendChild(iconeTrash)
+        modalGallery.appendChild(figure);
+    });
+}
