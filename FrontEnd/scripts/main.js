@@ -1,6 +1,5 @@
-// ===================================================
-//      1. Appel à l’API (works et filtres)
-// ===================================================
+import { affichageModeAdmin } from "./admin.js";
+import { openModal } from "./admin.js";
 
 async function appelApi(worksListe, filtresListe) {
     const worksReponse = await fetch("http://localhost:5678/api/works");
@@ -14,9 +13,6 @@ async function appelApi(worksListe, filtresListe) {
 }
 
 
-// ===================================================
-//      2. Affichage des works dynamique
-// ===================================================
 async function affichageWorks(worksListe) {
 
     const workGallery = document.querySelector(".gallery");
@@ -34,20 +30,18 @@ async function affichageWorks(worksListe) {
         const figure = document.createElement("figure");
         figure.appendChild(workImage);
         figure.appendChild(workTitle);
-        figure.setAttribute("data-category", work.category.id);
+        // On ajoute l'attribut "data-category" avec la valeur "work.category.id"
+        figure.setAttribute("data-category", work.category.id); 
         
         workGallery.appendChild(figure);
     }
 }
 
 
-// ===================================================
-//      3. Affichage des filtres dynamique
-// ===================================================
-import { affichageModeAdmin } from "./admin.js";
-
 async function affichageFiltres() {
 
+    // Ici on extrait les deux propriétés "workListe" et "filtresListe" de l'objet retourné par appelAPI()
+    // pour les stocker dans deux variables dinstinctes du même nom
     const {worksListe, filtresListe} = await appelApi();
 
     const workGallery = document.querySelector(".gallery");
@@ -91,10 +85,9 @@ async function affichageFiltres() {
     // Appel à la fonction pour l'affichage de base des works sans filtre :
     affichageWorks(worksListe);
     affichageModeAdmin();
+    openModal();
 }
 
-// ===================================================
-//      5. Lancement au chargement de la page
-// ===================================================
-    affichageFiltres();
-    
+
+affichageFiltres();
+

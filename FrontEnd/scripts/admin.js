@@ -1,6 +1,3 @@
-// ===================================================
-//      1. Création des éléments dans le DOM
-// ===================================================
 function creationDOMAdmin() {
     const iconeEdition = document.createElement("i");
     iconeEdition.classList.add("fa-regular", "fa-pen-to-square");
@@ -8,7 +5,7 @@ function creationDOMAdmin() {
     const spanEdition = document.createElement("span");
     spanEdition.innerText = "Mode édition";
     
-    const banniereEdition = document.createElement("div");
+    const banniereEdition = document.createElement("button");
     banniereEdition.appendChild(iconeEdition);
     banniereEdition.appendChild(spanEdition);
     banniereEdition.classList.add("banniere-mode-edition");
@@ -19,7 +16,7 @@ function creationDOMAdmin() {
     const iconeModifier = document.createElement("i");
     iconeModifier.classList.add("fa-regular", "fa-pen-to-square");
 
-    const btnModifier = document.createElement("span");
+    const btnModifier = document.createElement("button");
     btnModifier.innerText = "modifier";
     btnModifier.prepend(iconeModifier);
     btnModifier.classList.add("btn-modifier");
@@ -31,9 +28,6 @@ function creationDOMAdmin() {
 }
 
 
-// ===================================================
-//      1. Affichage des éléments en mode Admin
-// ===================================================
 export function affichageModeAdmin() {
     const { banniereEdition, btnModifier } = creationDOMAdmin();
 
@@ -59,3 +53,14 @@ export function affichageModeAdmin() {
         if (btnModifier) btnModifier.style.display = "flex";        
     }
 }
+
+
+export function openModal() {
+    const btnEdition = document.querySelector(".banniere-mode-edition");
+    const modal = document.querySelector(".modal");
+
+    btnEdition.addEventListener("click", () => {
+        modal.style.display = "flex";
+    });
+}
+
