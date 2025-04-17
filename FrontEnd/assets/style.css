@@ -122,7 +122,7 @@ h2 {
 	padding-left: 7px;
 }
 
-.logo-et-nav {
+.logo-nav {
 	display: flex;
 	justify-content: space-between;
 	margin-top: 50px;
@@ -153,6 +153,7 @@ nav img {
 #introduction {
 	display: flex;
 	align-items: center;
+	padding-left: 70px;
 }
 
 #introduction figure {
@@ -163,7 +164,7 @@ nav img {
 	display: block;
 	margin: auto;
 	width: 80%;
-	margin-top: 90px;
+	margin-top: 50px;
 	margin-bottom: 50px;
 }
 
@@ -181,7 +182,14 @@ nav img {
 	color: #3D3D3D;
 }
 
-#portfolio .projets-admin {
+#portfolio {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-sizing: border-box;
+}
+
+#portfolio .admin-project {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -191,7 +199,7 @@ nav img {
 	text-align: center;
 }
 
-#portfolio .projets-admin .btn-modifier {
+#portfolio .admin-project .btn-modifier {
 	display: none;
 	margin: 5px 0 0 30px;
 	gap: 7px;
@@ -234,11 +242,14 @@ nav img {
 }
 
 .gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	width: 86%;
+	gap: 20px;
+}
+
+.gallery figure {
+	width: 31%;
 }
 
 .gallery img {
@@ -386,6 +397,7 @@ footer nav ul {
 }
 
 .modal-wrapper {
+	position: absolute;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -395,36 +407,41 @@ footer nav ul {
 	background-color: white;
 }
 
+.first-modal {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 25px;
+}
+
 .modal-title {
 	display: flex;
 	justify-content: center;
-	align-items: center;
 	position: relative;
+	font-family: 'Work Sans';
+	font-size: 26px;
+	margin: 10px 0 20px 0;
 }
 
 #close-btn {
-	position: absolute;
-	left: 350px;
-	bottom: 50px;
+	position: relative;
+	top: 25px;
+	left: 270px;
 	background: none;
 	border: none;
-	font-size: 1.2em;
+	font-size: 23px;
 	cursor: pointer;
-}
-
-.modal-wrapper h3 {
-	font-family: 'Work Sans';
-	font-size: 26px;
-	margin-top: 70px;
 }
 
 .modal-gallery {
 	display: flex;
-	justify-content: space-between;
 	flex-wrap: wrap;
-	margin: 50px 100px 40px 100px;
+	align-content: flex-start;
+	height: 380px;
+	margin: 40px 100px 40px 100px;
 	padding-bottom: 40px;
-	border-bottom: solid 1px #B3B3B3;
+	gap: 11px;
+	border-bottom: solid 1px #B3B3B3BF;
 }
 
 .modal-gallery figure {
@@ -449,7 +466,7 @@ footer nav ul {
 	cursor: pointer;
 }
 
-.modal-btn button {
+.modal-switch-btn button {
 	font-family: "Syne";
 	font-size: 14px;
 	font-weight: 700;
@@ -457,6 +474,102 @@ footer nav ul {
 	border-radius: 60px;
 	border: none;
 	background-color: #1D6154;
+	width: 237px;
+	height: 36px;
+	padding: 10px 15px;
+	cursor: pointer;
+}
+
+.second-modal {
+	display: none;
+	flex-direction: column;
+}
+
+#back-btn {
+	position: relative;
+	right: 70px;
+	bottom: 5px;
+	width: 25px;
+	height: 30px;
+	font-size: 23px;
+	background-color: white;
+	border: none;
+	cursor: pointer;
+}
+
+.modal-add-photo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 420px;
+	height: 169px;
+	background-color: #E8F1F6;
+	margin-top: 25px;
+	border-radius: 3px;
+}
+
+#picture-icon {
+	font-size: 80px;
+	object-fit: cover;
+	color: #B9C5CC;
+}
+
+#btn-add-photo {
+	font-family: 'Work Sans';
+	font-size: 14px;
+	font-weight: 600;
+	color: #306685;
+	border: none;
+	border-radius: 50px;
+	background-color: #CBD6DC;
+	width: 173px;
+	height: 36px;
+	margin: 10px;
+	cursor: pointer;
+}
+
+.modal-add-photo span {
+	font-family: 'Work Sans';
+	font-size: 10px;
+	font-weight: 400;
+	color: #444444;
+}
+
+.modal-form form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	font-family: 'Work Sans';
+	font-size: 14px;
+	font-weight: 600;
+	color: #3D3D3D;
+	margin: 30px 0 30px 0;
+	padding-bottom: 30px;
+	border-bottom: solid 1px #B3B3B3BF;
+}
+
+.modal-form input {
+	padding: 15px;
+	margin: 10px 0 20px 0;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.modal-validate-btn {
+	display: flex;
+	justify-content: center;
+	padding-top: 20px;
+}
+
+.modal-validate-btn button {
+	font-family: "Syne";
+	font-size: 14px;
+	font-weight: 700;
+	color: white;
+	border-radius: 60px;
+	border: none;
+	background-color: #A7A7A7;
 	width: 237px;
 	height: 36px;
 	padding: 10px 15px;

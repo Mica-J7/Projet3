@@ -1,13 +1,13 @@
 import { affichageModeAdmin } from "./admin.js";
-import { openCloseModal } from "./admin.js";
+import { displayModal } from "./admin.js";
 import { displayModalGallery } from "./admin.js";
 
-export async function fetchData(worksListe, filtresListe) {
-    const worksReponse = await fetch("http://localhost:5678/api/works");
-    worksListe = await worksReponse.json();
+export async function fetchData() {
+    const worksResponse = await fetch("http://localhost:5678/api/works");
+    const worksListe = await worksResponse.json();
 
-    const categoriesReponse = await fetch("http://localhost:5678/api/categories");
-    filtresListe = await categoriesReponse.json();
+    const categoriesResponse = await fetch("http://localhost:5678/api/categories");
+    const filtresListe = await categoriesResponse.json();
 
     return {worksListe, filtresListe};
 }
@@ -71,7 +71,7 @@ async function init() {
     affichageWorks(worksListe);
     affichageFiltres(worksListe, filtresListe);
     affichageModeAdmin();
-    openCloseModal();
+    displayModal();
     displayModalGallery(worksListe);
 }
 

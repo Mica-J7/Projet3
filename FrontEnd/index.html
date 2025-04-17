@@ -16,7 +16,7 @@
 
 <body>
 <header>
-	<div class="logo-et-nav">
+	<div class="logo-nav">
 		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav>
 			<ul>
@@ -50,14 +50,14 @@
 	</section>
 
 	<section id="portfolio">
-		<div class="projets-admin">
+		<div class="admin-project">
 			<h2>Mes Projets</h2>
 		</div>
 		<div class="categories-filters">
-			<!-- Les categories (filtres) sont affichées de façon dynamique -->
+			<!-- Categories (filters) are displayed dynamically -->
 		</div>
 		<div class="gallery">
-			<!--La galerie est affichée de façon dynamique -->
+			<!-- The gallery is displayed dynamically -->
 		</div>
 	</section>
 
@@ -77,14 +77,39 @@
 
 	<aside class="modal" aria-hidden="true" role="dialog" aria-modal="true">
 		<div class="modal-wrapper">
-			<div class="modal-title">
-				<h3>Galerie photo</h3>
-				<button id="close-btn"><i class="fa-solid fa-xmark"></i></button>
+			<button id="close-btn"><i class="fa-solid fa-xmark"></i></button>
+			<div class="first-modal">
+				<div class="modal-title">
+					<h3>Galerie photo</h3>
+				</div>
+				<div class="modal-gallery">
+				</div>
+				<div class="modal-switch-btn">
+					<button>Ajouter une photo</button>
+				</div>
 			</div>
-			<div class="modal-gallery">
-			</div>
-			<div class="modal-btn">
-				<button>Ajouter une photo</button>
+
+			<div class="second-modal">
+				<button id="back-btn"><i class="fa-solid fa-arrow-left"></i></button>
+				<div class="modal-title">
+					<h3>Ajout photo</h3>
+				</div>
+				<div class="modal-add-photo">
+					<i id="picture-icon" class="fa-regular fa-image"></i>
+					<button id="btn-add-photo">+ Ajouter photo</button>
+					<span>jpg, png : 4mo max</span>
+				</div>
+				<div class="modal-form">
+					<form action="#" method="POST">
+						<label for="title">Titre</label>
+						<input type="text" name="add-title" id="title">
+						<label for="category">Catégorie</label>
+						<input type="text" name="add-category" id="category">
+					</form>
+				</div>
+				<div class="modal-validate-btn">
+					<button>Valider</button>
+				</div>
 			</div>
 		</div>
 	</aside>
