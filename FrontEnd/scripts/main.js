@@ -1,22 +1,23 @@
-import { affichageModeAdmin } from "./admin.js";
+import { displayAdminMode } from "./admin.js";
 import { displayModal } from "./admin.js";
 import { displayModalGallery } from "./admin.js";
+import { addWorks } from "./admin.js";
 
 export async function fetchData() {
     const worksResponse = await fetch("http://localhost:5678/api/works");
-    const worksListe = await worksResponse.json();
+    const worksList = await worksResponse.json();
 
     const categoriesResponse = await fetch("http://localhost:5678/api/categories");
-    const filtresListe = await categoriesResponse.json();
+    const filtersList = await categoriesResponse.json();
 
-    return {worksListe, filtresListe};
+    return {worksList, filtersList};
 }
 
 
-function affichageWorks(worksListe) {
+export function displayWorks(worksList) {
     const workGallery = document.querySelector(".gallery");
     workGallery.innerHTML = "";
-    worksListe.forEach(work => {
+    worksList.forEach(work => {
         const workImage = document.createElement("img");
         workImage.src = work.imageUrl;
         
@@ -33,46 +34,47 @@ function affichageWorks(worksListe) {
 }
 
 
-async function affichageFiltres(worksListe, filtresListe) {
-    const categoriesFiltres = document.querySelector(".categories-filters");
-
-    const filtreTous = document.createElement("button");
-    filtreTous.innerText = "Tous";
-    filtreTous.addEventListener("click", () => {
+async function displayFilters(worksList, filtersList) {
+    const categoriesFilters = document.querySelector(".categories-filters");
+    const filterAll = document.createElement("button");
+    filterAll.innerText = "Tous";
+    filterAll.classList.add("selected");
+    filterAll.addEventListener("click", () => {
         const allBtn = document.querySelectorAll(".categories-filters button");
         allBtn.forEach(btn => btn.classList.remove("selected")); 
-        filtreTous.classList.add("selected");
-        affichageWorks(worksListe);
+        filterAll.classList.add("selected");
+        displayWorks(worksList);
     });
-    categoriesFiltres.appendChild(filtreTous);
+    categoriesFilters.appendChild(filterAll);
     
-    filtresListe.forEach(filtre => {
-        const btnFiltres = document.createElement("button");
-        btnFiltres.innerText = filtre.name;
-        btnFiltres.setAttribute("data-category", filtre.id);
+    filtersList.forEach(filter => {
+        const filtersBtn = document.createElement("button");
+        filtersBtn.innerText = filter.name;
+        filtersBtn.setAttribute("data-category", filter.id);
 
-        btnFiltres.addEventListener("click", () => {
-            const worksFiltres = worksListe.filter(work => work.category.id === filtre.id);
-            affichageWorks(worksFiltres);
+        filtersBtn.addEventListener("click", () => {
+            const worksFilters = worksList.filter(work => work.category.id === filter.id);
+            displayWorks(worksFilters);
 
             const allBtn = document.querySelectorAll(".categories-filters button");
             allBtn.forEach(btn => btn.classList.remove("selected"));
             
-            btnFiltres.classList.add("selected");
+            filtersBtn.classList.add("selected");
         });
 
-        categoriesFiltres.appendChild(btnFiltres);
+        categoriesFilters.appendChild(filtersBtn);
     });
 }
 
 
 async function init() {
-    const { worksListe, filtresListe } = await fetchData();
-    affichageWorks(worksListe);
-    affichageFiltres(worksListe, filtresListe);
-    affichageModeAdmin();
+    const { worksList, filtersList } = await fetchData();
+    displayWorks(worksList);
+    displayFilters(worksList, filtersList);
+    displayAdminMode();
     displayModal();
-    displayModalGallery(worksListe);
+    displayModalGallery(worksList);
+    addWorks();
 }
 
 init();

@@ -1,35 +1,35 @@
-function loginUtilisateur() {
+function loginUser() {
     const loginForm = document.querySelector("#login form");
     const inputEmail = document.getElementById("email");
-    const inputMdp = document.getElementById("mot-de-passe");
+    const inputPassword = document.getElementById("password");
     const errorMsg = document.getElementById("error-message");
 
     loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const emailValue = inputEmail.value.trim();
-        const mdpValue = inputMdp.value.trim();
+        const passwordValue = inputPassword.value.trim();
 
-        if (emailValue === "" || mdpValue === "") {
+        if (emailValue === "" || passwordValue === "") {
             errorMsg.innerText = "Veuillez remplir tous les champs";
             return;
         }
 
-        const chargeUtile = {
+        const formData = {
             email: emailValue,
-            password: mdpValue,
+            password: passwordValue,
         };
 
         try {
-            const reponse = await fetch("http://localhost:5678/api/users/login", {
+            const response = await fetch("http://localhost:5678/api/users/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(chargeUtile),
+                body: JSON.stringify(formData),
             });
 
-            const data = await reponse.json();
+            const data = await response.json();
 
-            if (reponse.ok && data.token) {
+            if (response.ok && data.token) {
                 localStorage.setItem("token", data.token);
                 window.location.href = "index.html";
             } else {
@@ -41,5 +41,5 @@ function loginUtilisateur() {
     });
 }
 
-loginUtilisateur();
 
+loginUser();
