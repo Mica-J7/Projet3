@@ -64,6 +64,7 @@ export function displayModal() {
     const firstModal = document.querySelector(".first-modal");
     const secondModal = document.querySelector(".second-modal")
     const closeBtn = document.querySelector("#close-btn");
+    const addForm = document.querySelector("#add-form");
 
     editionBtn.addEventListener("click", () => {
         modal.style.display = "flex";
@@ -78,20 +79,22 @@ export function displayModal() {
     modal.addEventListener("click", (e) => {
         if (!modalWrapper.contains(e.target)) {
             modal.style.display = "none";
+            addForm.reset();
+            resetImagePreview();
         }
     });
     closeBtn.addEventListener("click", () => {
         modal.style.display = "none";
+        addForm.reset();
+        resetImagePreview();
     })
 
     const addBtn = document.querySelector(".modal-switch-btn button");
     const backBtn = document.querySelector("#back-btn");
-
     addBtn.addEventListener("click", () => {
         firstModal.style.display = "none";
         secondModal.style.display = "flex";
     });
-
     backBtn.addEventListener("click", () => {
         firstModal.style.display ="flex";
         secondModal.style.display = "none";
@@ -153,6 +156,31 @@ async function deleteWorkFromApi(id) {
 }
     
 
+function resetImagePreview() {
+    const icon = document.querySelector("#picture-icon");
+    const label = document.querySelector("label[for='add-file']");
+    const formatSpan = document.querySelector(".modal-add-photo span");
+    const fileInput = document.querySelector("#add-file");
+
+    icon.style.display = "block";
+    label.style.display = "flex";
+    formatSpan.style.display = "block";
+
+    const imagePreview = document.querySelector(".image-preview");
+    if (imagePreview) {
+        imagePreview.remove();
+    }
+
+    const backBtn =  document.querySelector(".preview-back-btn");
+    if (backBtn) {
+        backBtn.remove();
+    }
+
+    fileInput.value = "";
+    checkFormCompletion()
+}
+
+
 function imagePreview() {
     const fileInput = document.querySelector("#add-file");
     const modalPhotoZone = document.querySelector(".modal-add-photo");
@@ -175,7 +203,19 @@ function imagePreview() {
             const imagePreview = document.createElement("img");
             imagePreview.src = e.target.result;
             imagePreview.classList.add("image-preview")
-            modalPhotoZone.appendChild(imagePreview);
+            const backBtn = document.createElement("button");
+            backBtn.innerText = "Retour";
+            backBtn.classList.add("preview-back-btn");
+            const divPreview = document.createElement("div");
+            divPreview.classList.add("modal-preview");
+            divPreview.appendChild(imagePreview);
+            divPreview.appendChild(backBtn);
+            modalPhotoZone.appendChild(divPreview);
+
+            backBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                resetImagePreview();
+            });
         };
         reader.readAsDataURL(file);
     });
@@ -187,13 +227,37 @@ async function displayModalCategories() {
 
     const categoriesResponse = await fetch("http://localhost:5678/api/categories");
     const categoriesList = await categoriesResponse.json();
-        
+    const emptyOption = document.createElement("option");    
+    emptyOption.innerText = ""
+    addCategory.appendChild(emptyOption);
     categoriesList.forEach(category => {
         const categoryOption = document.createElement("option");
         categoryOption.value = category.id;
         categoryOption.innerText = category.name;
-        addCategory.appendChild(categoryOption)
+        addCategory.appendChild(categoryOption);
     });
+}
+
+
+function checkFormCompletion() {
+    const fileInput = document.querySelector("#add-file");
+    const titleInput = document.querySelector("#add-title");
+    const categorySelect = document.querySelector("#add-category");
+    const validateBtn = document.querySelector("#validate-btn");
+    if (
+        titleInput.value.trim() !== "" &&
+        categorySelect.value !== "" &&
+        fileInput.files.length > 0
+    ) {
+        validateBtn.style.backgroundColor = "#1D6154";
+        validateBtn.display = true;
+    } else {
+        validateBtn.style.backgroundColor = "#A7A7A7";
+        validateBtn.display = false;
+    }
+    titleInput.addEventListener("input", checkFormCompletion);
+    categorySelect.addEventListener("change", checkFormCompletion);
+    fileInput.addEventListener("change", checkFormCompletion);
 }
 
 
@@ -224,6 +288,7 @@ export async function addWorks() {
             displayModalGallery(worksList);
 
             addForm.reset();
+            resetImagePreview();
             
         } catch (err) {
 
@@ -234,3 +299,4 @@ export async function addWorks() {
 
 imagePreview();
 displayModalCategories();
+checkFormCompletion();

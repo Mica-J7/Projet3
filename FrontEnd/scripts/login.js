@@ -9,12 +9,11 @@ function loginUser() {
 
         const emailValue = inputEmail.value.trim();
         const passwordValue = inputPassword.value.trim();
-
         if (emailValue === "" || passwordValue === "") {
             errorMsg.innerText = "Veuillez remplir tous les champs";
             return;
-        }
-
+        };
+    
         const formData = {
             email: emailValue,
             password: passwordValue,
@@ -39,6 +38,18 @@ function loginUser() {
             errorMsg.innerText = "Une erreur est survenue, réessayez plus tard";
         }
     });
+    inputEmail.addEventListener("input", checkInputs);
+    inputPassword.addEventListener("input", checkInputs);
+}
+
+
+function checkInputs() {
+    const inputEmail = document.getElementById("email");
+    const inputPassword = document.getElementById("password");
+    const errorMsg = document.getElementById("error-message");
+    if (inputEmail.value.trim() !== "" && inputPassword.value.trim() !== "") {
+        errorMsg.innerText = "";
+    };
 }
 
 

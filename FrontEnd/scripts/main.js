@@ -34,7 +34,7 @@ export function displayWorks(worksList) {
 }
 
 
-async function displayFilters(worksList, filtersList) {
+function displayFilters(worksList, filtersList) {
     const categoriesFilters = document.querySelector(".categories-filters");
     const filterAll = document.createElement("button");
     filterAll.innerText = "Tous";
