@@ -352,7 +352,6 @@ footer nav ul {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding-top: 25px;
 }
 
 .first-modal-title {
@@ -390,6 +389,7 @@ footer nav ul {
 	flex-wrap: wrap;
 	align-content: flex-start;
 	height: 380px;
+	padding-bottom: 40px;
 	margin: 40px 100px 40px 100px;
 	gap: 11px;
 	border-bottom: solid 1px #B3B3B3BF;

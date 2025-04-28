@@ -290,9 +290,8 @@ export async function addWorks() {
             addForm.reset();
             resetImagePreview();
             
-        } catch (err) {
-
-            console.error("Erreur lors de l'ajout :", err);
+        } catch (error) {
+            document.getElementById("error-message").innerTexte = error.message;
         }
     });
 }

@@ -8,10 +8,10 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 	<link rel="stylesheet" href="./assets/style.css">
-	<script type="module" src="scripts/main.js" defer></script>
-	<script type="module" src="scripts/admin.js" defer></script>
+	<script type="module" src="scripts/main.js"></script>
+	<script type="module" src="scripts/admin.js"></script>
 </head>
 
 <body>
@@ -30,7 +30,7 @@
 </header>
 
 <main>
-	<section id="introduction">
+	<div id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="Photo portrait de Sophie Bluel">
 		</figure>
@@ -47,7 +47,7 @@
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être <br>
 				constituée : architecte DPLG, décorateur(trice)</p>
 		</article>
-	</section>
+	</div>
 
 	<section id="portfolio">
 		<div class="admin-project">
@@ -75,7 +75,7 @@
 		</form>
 	</section>
 
-	<aside class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+	<div class="modal" aria-hidden="true" role="dialog" aria-modal="true">
 		<div class="modal-wrapper">
 			<button id="close-btn"><i class="fa-solid fa-xmark"></i></button>
 			<div class="first-modal">
@@ -102,18 +102,19 @@
 							<input type="file" id="add-file" name="image" accept=".jpg, .jpeg, .png">
 							<span>jpg, png : 4mo max</span>
 						</div>
-							<label for="title">Titre</label>
+							<label for="add-title">Titre</label>
 							<input type="text" name="title" id="add-title" autocomplete="off">
-							<label for="category">Catégorie</label>
+							<label for="add-category">Catégorie</label>
 							<select name="category" id="add-category"></select>
 					</form>
 				</div>
 				<div class="modal-validate-btn">
 					<input id="validate-btn" form="add-form" type="submit" value="Valider">
+					<span id="error-message" class="error"></span>
 				</div>
 			</div>
 		</div>
-	</aside>
+	</div>
 </main>
 
 <footer>
