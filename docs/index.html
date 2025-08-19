@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Sophie Bluel - Architecte d'intérieur</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link rel="stylesheet" href="./assets/style.css">
+	<script type="module" src="scripts/main.js"></script>
+	<script type="module" src="scripts/admin.js"></script>
+</head>
+
+<body>
+<header>
+	<div class="logo-nav">
+		<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+		<nav>
+			<ul>
+				<li><a href="#portfolio">projets</a></li>
+				<li><a href="#contact">contact</a></li>
+				<li><a href="login.html" id="login-link">login</a></li>
+				<li><a href="https://www.instagram.com/" target="_blank"><img src="./assets/icons/instagram.png" alt="Instagram"></a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<main>
+	<div id="introduction">
+		<figure>
+			<img src="./assets/images/sophie-bluel.png" alt="Photo portrait de Sophie Bluel">
+		</figure>
+		<article>
+			<h2>Designer d'espace</h2>
+			<p>Je raconte votre histoire, je valorise vos idées. Je vous <br>
+				accompagne de la conception à la livraison finale du <br>
+				chantier.</p>
+			<p>Chaque projet sera étudié en commun, de façon à mettre <br>
+				en valeur les volumes, les matières et les couleurs dans le <br>
+				respect de l’esprit des lieux et le choix adapté des <br>
+				matériaux. Le suivi du chantier sera assuré dans le souci <br>
+				du détail, le respect du planning et du budget.</p>
+			<p>En cas de besoin, une équipe pluridisciplinaire peut-être <br>
+				constituée : architecte DPLG, décorateur(trice)</p>
+		</article>
+	</div>
+
+	<section id="portfolio">
+		<div class="admin-project">
+			<h2>Mes Projets</h2>
+		</div>
+		<div class="categories-filters">
+			<!-- Categories (filters) are displayed dynamically -->
+		</div>
+		<div class="gallery">
+			<!-- The gallery is displayed dynamically -->
+		</div>
+	</section>
+
+	<section id="contact">
+		<h2>Contact</h2>
+		<p>Vous avez un projet ? Discutons-en !</p>
+		<form action="#" method="post">
+			<label for="name">Nom</label>
+			<input type="text" name="name" id="name" autocomplete="off">
+			<label for="email">Email</label>
+			<input type="email" name="email" id="email" autocomplete="off">
+			<label for="message">Message</label>
+			<textarea name="message" id="message" cols="30" rows="10"></textarea>
+			<input class="send-connect" type="submit" value="Envoyer">
+		</form>
+	</section>
+
+	<!-- The modal is displayed dynamically -->
+	<div class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+		<div class="modal-wrapper">
+			<button id="close-btn"><i class="fa-solid fa-xmark"></i></button>
+			<div class="first-modal">
+				<div class="first-modal-title">
+					<h3>Galerie photo</h3>
+				</div>
+				<div class="modal-gallery">
+				</div>
+				<div class="modal-switch-btn">
+					<div id="delete-error"></div>
+					<button>Ajouter une photo</button>
+				</div>
+			</div>
+
+			<div class="second-modal">
+				<button id="back-btn"><i class="fa-solid fa-arrow-left"></i></button>
+				<div class="second-modal-title">
+					<h3>Ajout photo</h3>
+				</div>
+				<div class="modal-form">
+					<form id="add-form" action="#" method="POST">
+						<div class="modal-add-photo">
+							<i id="picture-icon" class="fa-regular fa-image"></i>
+							<label for="add-file" class="btn-add-photo" >+ Ajouter photo</label>
+							<input type="file" id="add-file" name="image" accept=".jpg, .jpeg, .png">
+							<span>jpg, png : 4mo max</span>
+						</div>
+							<label for="add-title">Titre</label>
+							<input type="text" name="title" id="add-title" autocomplete="off">
+							<label for="add-category">Catégorie</label>
+							<select name="category" id="add-category"></select>
+					</form>
+				</div>
+				<div class="modal-validate-btn">
+					<input id="validate-btn" form="add-form" type="submit" value="Valider">
+					<span id="error-message" class="error"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<footer>
+	<nav>
+		<ul>
+			<li>Mentions Légales</li>
+		</ul>
+	</nav>
+</footer>
+</body>
+</html>
